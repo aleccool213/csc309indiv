@@ -1,0 +1,47 @@
+<div class="col-md-7">
+  <div class="page-header">
+      <span ng-show="post.description">
+        <h3>
+          Comments for: {{post.title}}
+        </h3>
+      </span>
+    </h3>
+  </div>
+
+  <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h2>
+            {{comment.author}}
+          </h2>
+        </div>
+      </div>
+      <div class="panel-body">
+        <span style="font-size:20px; margin-left:10px;">
+          <h3>
+            {{comment.body}}
+          </h3>
+        </span>
+      </div>
+      <div class="panel-footer">
+        <span class="glyphicon glyphicon-thumbs-up upvote"
+          ng-click="incrementUpvotes(comment)"></span>
+        {{comment.upvotes}}
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="col-md-4 sidebar" ng-show="user.authenticated">
+  <form ng-submit="addComment()" id="add-comment">
+    <h3>Add a new comment</h3>
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Comment"
+      ng-model="body"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+</div>
