@@ -1,0 +1,19 @@
+{
+  "name": "start-idea",
+  "version": "0.0.0",
+  "authors": [
+    "aleccool213 <moteygo@gmail.com>"
+  ],
+  "description": "A csc309 project",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

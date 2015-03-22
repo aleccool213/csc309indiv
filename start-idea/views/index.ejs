@@ -1,0 +1,255 @@
+<html>
+  <head>
+    <title>Idea Start</title>
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
+    <link rel="stylesheet" href="/stylesheets/toastr.css"/>
+
+    <link rel='stylesheet' type='text/css'  href='http://fonts.googleapis.com/css?family=Poiret+One'>
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/ng-tags-input.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://app.userapp.io/js/userapp.client.js"></script>
+    <script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
+    <script src="/javascripts/toastr.js"></script>
+    <script src="/javascripts/ng-tags-input.js"></script>
+  </head>
+  
+  <body ng-app="start-idea">
+    <div ui-view></div>
+
+    <script type="text/ng-template" id="/landing.html">
+      <div class="landing-body">
+        <div role="group" aria-label="..." id="landing-nav">
+          <a href="#/login"> <button type="button" class="btn btn-primary">Log in</button></a>
+          <a href="#/signup"><button type="button" class="btn btn-default">Sign up</button></a>
+        </div>
+        
+        <div id="content">
+          <div class="landing-text">
+            <h1 id="landing-header">Idea Start</h1>
+          </div>
+        </div>
+      </div>
+    </script>
+   
+    <script type="text/ng-template" id="/home.html">
+      <%- include navbar.ejs %>
+      <div class="row">
+        <div class="col-md-7">
+          <div class="page-header">
+            <h1>Idea Start</h1>
+          </div>
+
+          <!-- with tables?list-groups?  -->
+          <div ng-repeat="post in posts | orderBy:'-upvotes' | filter:search">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <h2>
+                    {{post.title}}
+                  </h2>
+                </div>
+              </div>
+              <div class="panel-body">
+                <h3>
+                  {{post.description}}
+                </h3>
+                <h3>
+                  Tags:
+                </h3>
+                <div class="btn-group" role="group" aria-label="...">
+                  <div ng-repeat="tag in post.tags" class="indiv-tag">
+                    <button type="button" class="btn btn-default">{{tag.text}}</button>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <div class="upvote">
+                  <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)">
+
+                  </span>
+                  + {{post.upvotes}}
+                </div>
+                <p id="panel-author">
+                  By: {{post.author}}
+                </p>
+                <a href="#/posts/{{post._id}}"> 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true" id="comment-link"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 sidebar" ng-show="user.authenticated">
+          <form ng-submit="addPost()" id="new-post">
+            <div class="page-header">
+              <h2>Add a new idea</h2>
+            </div>
+            <div class="form-group">
+              <input type="text"
+                class="form-control"
+                placeholder="Title"
+                ng-model="title"/>
+            </div>
+            <br>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" cols="50" placeholder="Description" ng-model="description"></textarea>
+            </div>
+            <br>
+            <tags-input ng-model="tags">
+            </tags-input>
+            <br>
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/ng-template" id="/posts.html">
+      <%- include navbar.ejs %>
+      <div class="row">
+        <div class="col-md-7">
+          <div class="page-header">
+              <span ng-show="post.description">
+                <h3>
+                  Comments for: {{post.title}}
+                </h3>
+              </span>
+            </h3>
+          </div>
+
+          <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <h2>
+                    {{comment.author}}
+                  </h2>
+                </div>
+              </div>
+              <div class="panel-body">
+                <span style="font-size:20px; margin-left:10px;">
+                  <h3>
+                    {{comment.body}}
+                  </h3>
+                </span>
+              </div>
+              <div class="panel-footer">
+                <span class="glyphicon glyphicon-thumbs-up upvote"
+                  ng-click="incrementUpvotes(comment)"></span>
+                {{comment.upvotes}}
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-md-4 sidebar" ng-show="user.authenticated">
+          <form ng-submit="addComment()" id="add-comment">
+            <h3>Add a new comment</h3>
+            <div class="form-group">
+              <input type="text"
+              class="form-control"
+              placeholder="Comment"
+              ng-model="body"></input>
+            </div>
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+        </div>
+      </div>
+
+    </script>   
+
+    <script type="text/ng-template" id="/login.html">
+      <%- include navbar.ejs %>
+      <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <p>Please log in </p>
+
+            <form ua-login>
+              <div class="form-group">
+                <input name="login" placeholder="Email" class="form-control">
+                <br>
+              </div>
+              <div class="form-group">
+                <input name="password" placeholder="Password" type="password" class="form-control">
+                <br>
+              </div>
+              <p><button type="submit" class="btn btn-primary">Log in</button> or <button ua-oauth-link="github" class="btn btn-lg btn-github"><i class="fa fa-github"></i></button>
+              
+              <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
+              <p ng-show="error">{{ error.message }}</p>
+            </form>
+
+            <p>
+              Dont have an account?
+              <a href="#/signup">
+                <button class="btn btn-info" >Signup</button>
+              </a>
+            </p>
+            <p>
+              Forgot your password?
+              <a href="#/reset-password">
+                <button class="btn btn-info" >Reset password</button>
+              </a>
+            </p>
+        </div>
+      </div>
+
+    </script>
+
+    <script type="text/ng-template" id="/signup.html">
+      <%- include navbar.ejs %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <p>Sign up</p>
+
+          <form ua-signup ng-show="!verificationEmailSent">
+          <div class="form-group">
+            <input name="first_name" placeholder="Your name" class="form-control">
+            <br>
+          </div>
+          <div class="form-group">
+            <input name="login" ua-is-email placeholder="Email" class="form-control">
+            <br>
+          </div>
+          <div class="form-group">
+            <input name="password" placeholder="Password" type="password" class="form-control">
+            <br>
+          </div>
+          
+            <p>
+              <button type="submit" class="btn btn-primary">
+                Create account
+              </button> 
+              or 
+              <button ua-oauth-link="github" class="btn btn-lg btn-github">
+                <i class="fa fa-github"></i>
+              </button>
+            
+            <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif">
+            </p>
+            <p ng-show="error">{{ error.message }}</p>
+          </div>
+          </form>
+
+          <p ng-show="verificationEmailSent">An email has been sent to your inbox. Click on the link to verify your account.</p>
+        </div>
+      </div>
+    </script>
+
+  </body>
+</html>

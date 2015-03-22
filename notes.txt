@@ -1,0 +1,24 @@
+## Specs/Routes needed
+
+* Login/register/profile page (modal or sidebar)
+* new post (top of page? modal? sidebar?)
+* all submitted posts will be on home page, edit/delete user created ones via sidebar
+* existing post, whole other page, too much info for just a modal
+* Like button, only one like per post, need clear distincting between like and non-liked state
+* 
+
+## Tasks todo:
+
+* high priority
+	* only one upvote per user on everything, downvote as well?
+	* tags
+	* searching by tags
+	* fix routing issues
+	* deploy heroku/digital ocean/anything 
+
+* low priority
+	* render everything as partials, such as views
+	* down all cdn files and store in static assets/folder called vendor
+	* have the # of comments up on the home page for a post panel
+	* change all front end depen. to bower based stuff
+	* tooltips for informative mouse hovers

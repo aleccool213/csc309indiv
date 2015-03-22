@@ -1,0 +1,103 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.landing-body{
+  background: url('/images/landing-page.jpeg') no-repeat center center / cover;
+  width: 100%;
+  height: 100%;
+  display: table; 
+}
+
+#landing-nav{
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+#content{
+  display: table-cell;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#landing-text{
+  margin: 0 auto;
+  padding: 1em 3em;
+  max-width: 15em;
+}
+
+#panel-author{
+  display:inline;
+}
+
+tags-input{
+  height: 10%;
+}
+
+.indiv-tag{
+  display:inline-block;
+}
+
+.panel, form{
+  width: 90%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upvote{
+  float: left;
+}
+
+.navbar-name{
+  display:inline;
+}
+
+.row{
+  margin-right: 0;
+  margin-left: 0;
+}
+
+
+h1, h2, h3, p, button{
+  font-family: 'Poiret One', cursive;
+}
+
+a{
+  color: #00B7FF;
+}
+
+.glyphicon-thumbs-up {
+	cursor: pointer;
+}
+
+#description{
+	margin-left: 10px;
+}
+
+#new-post{
+	margin-top:30px;
+}
+
+#add-comment{
+	margin-top:30px;
+}
+
+#comment-link{
+  float: right;
+}
+
+.page-header{
+  text-align: center;
+}
+
+#navbar-name{
+  display:inline;
+}
+
