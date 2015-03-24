@@ -64,6 +64,9 @@ tags-input{
   margin-left: 0;
 }
 
+#post-upvote-count{
+  display:inline;
+}
 
 h1, h2, h3, p, button{
   font-family: 'Poiret One', cursive;

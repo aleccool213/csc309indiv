@@ -87,12 +87,11 @@ router.post('/posts', function(req, res, next) {
 });
 
 /* PUT: Upvote a single post */
-router.put('/posts/:post/upvote', function(req, res, next) {
+router.put('/posts/:post/upvote/:author', function(req, res, next) {
   req.post.upvote(function(err, post){
     if (err) { return next(err); }
-
     res.json(post);
-  });
+  }, req.params.author);
 });
 
 /* GET: Get a single posts tags */
@@ -103,6 +102,7 @@ router.get('/posts/:post/tags', function(req, res, next) {
     res.json(post);
   });
 });
+
 
 /* Comments */
 

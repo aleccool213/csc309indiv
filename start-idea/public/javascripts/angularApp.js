@@ -77,10 +77,10 @@ app.factory('posts',['$http', function($http){
       o.posts.push(data);
     });
   };
-  o.upvote = function(post) {
-    return $http.put('/posts/' + post._id + '/upvote')
+  o.upvote = function(post, author) {
+    return $http.put('/posts/' + post._id + '/upvote/' + author.first_name)
       .success(function(data){
-        post.upvotes += 1;
+        post.upvotes.push({author: currentUser.first_name});
       });
   };
   o.get = function(id) {
@@ -94,7 +94,6 @@ app.factory('posts',['$http', function($http){
     });
   };
   o.addTags = function(id) {
-
     return $http.post('/posts/' + id + '/tags', tags);
   };
   o.addComment = function(id, comment) {
@@ -115,14 +114,12 @@ app.controller('HomeCtrl', [
   'posts',
 	function($scope, posts){
     $scope.posts = posts.posts;
-	  $scope.test = 'Hello world!';
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '' || !$scope.description || 
         $scope.description === '') {
         toastr.warning('Missing fields!')
         return;
       }
-
       posts.create({
         title: $scope.title,
         author: $scope.author,
@@ -134,7 +131,18 @@ app.controller('HomeCtrl', [
       $scope.tags = '';
     };
     $scope.incrementUpvotes = function(post) {
-      posts.upvote(post);
+      checker = false;
+      for (i = 0; i < post.upvotes.length; i ++){
+        if (post.upvotes[i]['author'] == currentUser.first_name){
+          checker = true;
+        }
+      }
+      if (checker == false){
+        posts.upvote(post, currentUser);
+      }
+      else{
+        toastr.warning('You can only upvote once!')
+      }
     };
   }]
 
@@ -153,7 +161,7 @@ app.controller('PostsCtrl', [
       }
       posts.addComment(post._id, {
         body: $scope.body,
-        author: 'user',
+        author: currentUser.first_name,
       }).success(function(comment) {
         $scope.post.comments.push(comment);
       });
@@ -166,8 +174,3 @@ app.controller('PostsCtrl', [
   }]  
 );
 
-app.controller('UsersCtrl', [
-  '$scope',
-
-
-  ])

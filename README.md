@@ -8,7 +8,7 @@ A small MEAN app built for a school project.
 	* deploy heroku/digital ocean/anything 
 
 * low priority
-	* render everything as partials, such as views
+	* have user references in DB by ID and not first_name 
 	* down all cdn files and store in static assets/folder called vendor
 	* have the # of comments up on the home page for a post panel
 	* change all front end depen. to bower based stuff

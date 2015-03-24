@@ -31,10 +31,10 @@
           <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)">
 
           </span>
-          + {{post.upvotes}}
+          + <p ng-bind="post.upvotes.length" id="post-upvote-count"></p>
         </div>
         <p id="panel-author">
-          By: {{post.author}}
+          By: {{ post.author }}
         </p>
         <a href="#/posts/{{post._id}}"> 
           <span class="glyphicon glyphicon-comment" aria-hidden="true" id="comment-link"></span>
