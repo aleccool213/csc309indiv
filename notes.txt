@@ -13,6 +13,8 @@
 	* deploy heroku/digital ocean/anything 
 
 * low priority
+	* spaces between tags
+	* make header text on landing clickable
 	* down all cdn files and store in static assets/folder called vendor
 	* have the # of comments up on the home page for a post panel
 	* change all front end depen. to bower based stuff
