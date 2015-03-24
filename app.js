@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cool = require('cool-ascii-faces');
 
 // db and shiz
 var mongoose = require('mongoose');
@@ -15,6 +16,12 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'))
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
