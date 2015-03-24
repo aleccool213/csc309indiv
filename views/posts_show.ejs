@@ -10,13 +10,6 @@
 
   <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h2>
-            {{comment.author}}
-          </h2>
-        </div>
-      </div>
       <div class="panel-body">
         <span style="font-size:20px; margin-left:10px;">
           <h3>
@@ -25,9 +18,14 @@
         </span>
       </div>
       <div class="panel-footer">
-        <span class="glyphicon glyphicon-thumbs-up upvote"
-          ng-click="incrementUpvotes(comment)"></span>
-        {{comment.upvotes}}
+        <div class="upvote">
+          <span ng-hide="userVoted(comment)" class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>
+          <span ng-show="userVoted(comment)" class="glyphicon glyphicon-thumbs-down" ng-click="incrementUpvotes(comment)"></span>
+          + <p ng-bind="comment.upvotes.length" id="post-upvote-count"></p>
+        </div>
+        <p id="panel-author">
+          By: {{ comment.author }}
+        </p>
       </div>
     </div>
     

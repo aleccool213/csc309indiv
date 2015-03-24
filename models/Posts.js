@@ -14,13 +14,13 @@ PostSchema.methods.upvote = function(cb, user_first_name) {
   this.save(cb);
 };
 
-PostSchema.methods.checkUpvotes = function(cb, current_user){
-  for(i = 0; i < this.upvotes.length; i ++){
-    if (this.upvotes[i].author == current_user.first_name){
-      return false;
+PostSchema.methods.downvote = function(cb, user_first_name) {
+  for(i = 0;i < this.upvotes.length;i++){
+    if (this.upvotes[i]['author'] == user_first_name){
+      this.upvotes.splice(i, 1);
     }
   }
-  return true;
+  this.save(cb);
 };
 
 mongoose.model('Post', PostSchema);

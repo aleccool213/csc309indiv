@@ -83,6 +83,16 @@ app.factory('posts',['$http', function($http){
         post.upvotes.push({author: currentUser.first_name});
       });
   };
+  o.downvote = function(post, author) {
+    return $http.put('/posts/' + post._id + '/downvote/' + author.first_name)
+      .success(function(data){
+        for(i = 0;i < post.upvotes.length;i++){
+          if (post.upvotes[i]['author'] == currentUser.first_name){
+            post.upvotes.splice(i, 1);
+          }
+        }
+      });
+  };
   o.get = function(id) {
     return $http.get('/posts/' + id).then(function(res){
       return res.data;
@@ -100,10 +110,20 @@ app.factory('posts',['$http', function($http){
     //comment.author = currentUser.first_name;
     return $http.post('/posts/' + id + '/comments', comment);
   };
-  o.upvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote')
+  o.upvoteComment = function(post, comment, author) {
+    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote/' + author.first_name)
       .success(function(data){
-        comment.upvotes += 1;
+        comment.upvotes.push({author: currentUser.first_name});
+      });
+  };
+  o.downvoteComment = function(post, comment, author) {
+    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/downvote/' + author.first_name)
+      .success(function(data){
+        for(i = 0;i < comment.upvotes.length;i++){
+          if (comment.upvotes[i]['author'] == currentUser.first_name){
+            comment.upvotes.splice(i, 1);
+          }
+        }
       });
   };
   return o;
@@ -129,6 +149,7 @@ app.controller('HomeCtrl', [
       $scope.title = '';
       $scope.description = '';
       $scope.tags = '';
+      toastr.success('New idea posted!');
     };
     $scope.incrementUpvotes = function(post) {
       checker = false;
@@ -139,10 +160,22 @@ app.controller('HomeCtrl', [
       }
       if (checker == false){
         posts.upvote(post, currentUser);
+        toastr.success('Upvoted!');
+        $scope.userVoted(post);
       }
       else{
-        toastr.warning('You can only upvote once!')
+        posts.downvote(post, currentUser);
+        toastr.error('Downvoted!');
+        $scope.userVoted(post);
       }
+    };
+    $scope.userVoted = function (post) {
+      for (i = 0; i < post.upvotes.length; i ++){
+        if (post.upvotes[i]['author'] == currentUser.first_name){
+          return true;
+        }
+      }
+      return false;
     };
   }]
 
@@ -166,11 +199,35 @@ app.controller('PostsCtrl', [
         $scope.post.comments.push(comment);
       });
       $scope.body = '';
+      toastr.success('Comment posted!');
     };
     $scope.incrementUpvotes = function(comment){
-      posts.upvoteComment(post, comment);
+      checker = false;
+      for (i = 0; i < comment.upvotes.length; i ++){
+        if (comment.upvotes[i]['author'] == currentUser.first_name){
+          checker = true;
+        }
+      }
+      if (checker == false){
+        posts.upvoteComment(post, comment, currentUser);
+        toastr.success('Upvoted!');
+        $scope.userVoted(comment);
+      }
+      else{
+        posts.downvoteComment(post, comment, currentUser);
+        toastr.error('Downvoted!');
+        $scope.userVoted(comment);
+      }
     };
+    $scope.userVoted = function (comment){
+      for (i = 0; i < comment.upvotes.length; i ++){
+        if (comment.upvotes[i]['author'] == currentUser.first_name){
+          return true;
+        }
+      }
+      return false;
 
+    };
   }]  
 );
 

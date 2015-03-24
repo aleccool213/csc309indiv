@@ -28,9 +28,8 @@
       </div>
       <div class="panel-footer">
         <div class="upvote">
-          <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)">
-
-          </span>
+          <span ng-hide="userVoted(post)" class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
+          <span ng-show="userVoted(post)" class="glyphicon glyphicon-thumbs-down" ng-click="incrementUpvotes(post)"></span>
           + <p ng-bind="post.upvotes.length" id="post-upvote-count"></p>
         </div>
         <p id="panel-author">

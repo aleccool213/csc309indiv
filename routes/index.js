@@ -94,6 +94,14 @@ router.put('/posts/:post/upvote/:author', function(req, res, next) {
   }, req.params.author);
 });
 
+/* PUT: Downvote a single post */
+router.put('/posts/:post/downvote/:author', function(req, res, next) {
+  req.post.downvote(function(err, post){
+    if (err) { return next(err); }
+    res.json(post);
+  }, req.params.author);
+});
+
 /* GET: Get a single posts tags */
 router.get('/posts/:post/tags', function(req, res, next) {
   req.post.populate('tags', function(err, post) {
@@ -102,7 +110,6 @@ router.get('/posts/:post/tags', function(req, res, next) {
     res.json(post);
   });
 });
-
 
 /* Comments */
 
@@ -124,12 +131,21 @@ router.post('/posts/:post/comments', function(req, res, next) {
 });
 
 /* PUT: Upvote a single comment */
-router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+router.put('/posts/:post/comments/:comment/upvote/:author', function(req, res, next) {
   req.comment.upvote(function(err, comment){
     if (err) { return next(err); }
 
     res.json(comment);
-  });
+  }, req.params.author);
+});
+
+/* PUT: Downvote a single comment */
+router.put('/posts/:post/comments/:comment/downvote/:author', function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if (err) { return next(err); }
+
+    res.json(comment);
+  }, req.params.author);
 });
 
 module.exports = router;
