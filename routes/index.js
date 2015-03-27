@@ -86,6 +86,16 @@ router.post('/posts', function(req, res, next) {
   });
 });
 
+/* PUT: Delete a single post */
+router.delete('/posts/:post/delete', function(req, res, next) {
+  req.post.remove({
+     _id: req.params.post
+  }, function(err, post){
+    if (err) { return next(err); }
+    res.json(post);
+  });
+});
+
 /* PUT: Upvote a single post */
 router.put('/posts/:post/upvote/:author', function(req, res, next) {
   req.post.upvote(function(err, post){

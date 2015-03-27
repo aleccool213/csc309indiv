@@ -24,6 +24,10 @@
     <script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
     <script src="/javascripts/toastr.js"></script>
     <script src="/javascripts/ng-tags-input.js"></script>
+
+    <link href="/stylesheets/xeditable.css" rel="stylesheet">
+    <script src="/javascripts/xeditable.min.js"></script>
+    
   </head>
   
   <body ng-app="start-idea">
@@ -63,7 +67,6 @@
       <div class="row">
         <%- include login.ejs %>
       </div>
-
     </script>
 
     <script type="text/ng-template" id="/signup.html">
@@ -73,5 +76,12 @@
       </div>
     </script>
 
+    <script type="text/ng-template" id="/profile.html">
+      <%- include navbar.ejs %>
+      <div class="row">
+        <%- include profile.ejs %>
+      </div>
+    </script>
+  
   </body>
 </html>

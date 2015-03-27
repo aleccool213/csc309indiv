@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
 var PostSchema = new mongoose.Schema({
   title: String,
@@ -6,8 +7,11 @@ var PostSchema = new mongoose.Schema({
   author: String,
   upvotes: [{author: String}],
   tags: [{text: String}],
+  category: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
+
+PostSchema.plugin(timestamps);
 
 PostSchema.methods.upvote = function(cb, user_first_name) {
   this.upvotes.push({author: user_first_name});
@@ -22,5 +26,6 @@ PostSchema.methods.downvote = function(cb, user_first_name) {
   }
   this.save(cb);
 };
+
 
 mongoose.model('Post', PostSchema);

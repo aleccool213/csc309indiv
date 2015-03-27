@@ -1,4 +1,5 @@
 var express = require('express');
+var coffee = require('coffee-script')
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,7 +11,7 @@ var cool = require('cool-ascii-faces');
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
-mongoose.connect('mongodb://heroku_app35180003:897ebi0l627k32317j9sdc48es@ds049171.mongolab.com:49171/heroku_app35180003');
+mongoose.connect('mongodb://127.0.0.1:27017/news');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

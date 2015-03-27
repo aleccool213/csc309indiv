@@ -1,9 +1,5 @@
 <div class="col-md-7">
-  <div class="page-header">
-    <h1>Idea Start</h1>
-  </div>
-
-  <!-- with tables?list-groups?  -->
+<h2> Your posts! </h2>
   <div ng-repeat="post in posts | orderBy:'-upvotes' | filter:search">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -45,31 +41,5 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="col-md-4 sidebar" ng-show="user.authenticated">
-  <form ng-submit="addPost()" id="new-post">
-    <div class="page-header">
-      <h2>Add a new idea</h2>
-    </div>
-    <div class="form-group">
-      <input type="text"
-        class="form-control"
-        placeholder="Title"
-        ng-model="title"/>
-    </div>
-    <br>
-    <div class="form-group">
-      <textarea class="form-control" rows="4" cols="50" placeholder="Description" ng-model="description"></textarea>
-    </div>
-    <br>
-    <div class="form-group">
-      <select class="form-control" ng-model="category" ng-options="item.title for item in items"></select>
-    </div>
-    <br>
-    <tags-input ng-model="tags">
-    </tags-input>
-    <br>
-    <button type="submit" class="btn btn-primary">Post</button>
-  </form>
 </div>

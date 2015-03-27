@@ -9,10 +9,12 @@
 
 ## Tasks todo:
 
-* high priority
-	* deploy heroku/digital ocean/anything 
+* high priority (K.I.S.S.)
+	* range of dates pertaining to post `post`request
+	* graph api, return link to partial with the graph probs
 
 * low priority
+	* search form only on appropriate pages
 	* spaces between tags
 	* make header text on landing clickable
 	* down all cdn files and store in static assets/folder called vendor

@@ -68,6 +68,9 @@ tags-input{
   display:inline;
 }
 
+#category-header{
+  float: right;
+}
 h1, h2, h3, p, button{
   font-family: 'Poiret One', cursive;
 }
@@ -97,6 +100,10 @@ a{
 }
 
 .page-header{
+  text-align: center;
+}
+
+#post-header{
   text-align: center;
 }
 

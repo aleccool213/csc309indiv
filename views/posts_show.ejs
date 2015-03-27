@@ -31,7 +31,47 @@
     
   </div>
 </div>
+
 <div class="col-md-4 sidebar" ng-show="user.authenticated">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <h2>
+          <div id="post-header">
+            <a href="#" editable-text="post.title" ng-show="post.author == user.first_name">{{ post.title || "empty" }}</a>
+            <span ng-show="post.author == user.first_name" class="fa fa-trash-o" ng-click="deletePost(post)" id="edit-buttons"></span>
+          </div>
+        </h2>
+      </div>
+    </div>
+    <div class="panel-body">
+      <h3>
+        <a href="#" editable-text="post.description" ng-show="post.author == user.first_name">{{ post.description || "empty" }}</a>
+      </h3>
+      <h3>
+        Tags:
+      </h3>
+      <div class="btn-group" role="group" aria-label="...">
+        <div ng-repeat="tag in post.tags" class="indiv-tag">
+          <button type="button" class="btn btn-default">{{tag.text}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="upvote">
+        <span ng-hide="userVoted(post)" class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
+        <span ng-show="userVoted(post)" class="glyphicon glyphicon-thumbs-down" ng-click="incrementUpvotes(post)"></span>
+        + <p ng-bind="post.upvotes.length" id="post-upvote-count"></p>
+      </div>
+      <p id="panel-author">
+        Category: {{post.category}} 
+        By: {{ post.author }}
+      </p>
+      <a href="#/posts/{{post._id}}"> 
+        <span class="glyphicon glyphicon-comment" aria-hidden="true" id="comment-link"></span>
+      </a>
+    </div>
+  </div>
   <form ng-submit="addComment()" id="add-comment">
     <h3>Add a new comment</h3>
     <div class="form-group">

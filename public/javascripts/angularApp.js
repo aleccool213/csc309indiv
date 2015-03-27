@@ -1,4 +1,4 @@
-var app = angular.module('start-idea', ['ui.router', 'UserApp', 'ngTagsInput']);
+var app = angular.module('start-idea', ['ui.router', 'UserApp', 'ngTagsInput', 'xeditable']);
 
 app.config([
   '$stateProvider',
@@ -54,12 +54,26 @@ app.config([
           public: true
         }
       })
+      .state('profile',{
+        url:"/profile",
+        templateUrl: "/profile.html",
+        controller: 'HomeCtrl',
+        resolve: {
+            postPromise: ['posts', function(posts){
+              return posts.getAll();
+            }]
+          },
+        data:{
+          public: false
+        }
+      });
     
 }]);
 
-app.run(function(user) {
+app.run(function(user, editableOptions) {
     user.init({ appId: '550a503de6883' });
     currentUser = user.current;
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
 app.factory('posts',['$http', function($http){
@@ -75,6 +89,14 @@ app.factory('posts',['$http', function($http){
     post.author = currentUser.first_name;
     return $http.post('/posts', post).success(function(data){
       o.posts.push(data);
+    });
+  };
+  o.remove = function(post) {
+    return $http.delete('/posts/' + post._id + '/delete').success(function(data){
+      int = o.posts.indexOf(post);
+      if (int > -1){
+        o.posts.splice(int, 1);
+      }
     });
   };
   o.upvote = function(post, author) {
@@ -134,6 +156,14 @@ app.controller('HomeCtrl', [
   'posts',
 	function($scope, posts){
     $scope.posts = posts.posts;
+    $scope.items = [
+      {title: "Health"},
+      {title: "Technology"},
+      {title: "Education"},
+      {title: "Finance"},
+      {title: "Travel"},
+    ];
+    $scope.category = $scope.items[0]
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '' || !$scope.description || 
         $scope.description === '') {
@@ -142,7 +172,7 @@ app.controller('HomeCtrl', [
       }
       posts.create({
         title: $scope.title,
-        author: $scope.author,
+        category: $scope.category.title,
         tags: $scope.tags,
         description: $scope.description, 
       });
@@ -176,6 +206,9 @@ app.controller('HomeCtrl', [
         }
       }
       return false;
+    };
+    $scope.deletePost = function (post) {
+      posts.remove(post);
     };
   }]
 
