@@ -1,6 +1,8 @@
 # Idea Start
 A small MEAN app built for a school project.
 
+[![forthebadge](http://forthebadge.com/images/badges/compatibility-betamax.svg)](http://forthebadge.com)
+
 ## Tasks todo:
 
 * low priority
