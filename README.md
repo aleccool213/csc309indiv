@@ -1,6 +1,10 @@
 # Idea Start
 A small MEAN app built for a school project.
 
+![image](http://prntscr.com/8lo27q)
+
+![image](http://prntscr.com/8lo2fb)
+
 [![forthebadge](http://forthebadge.com/images/badges/compatibility-betamax.svg)](http://forthebadge.com)
 
 ## Tasks todo:
