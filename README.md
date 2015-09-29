@@ -1,9 +1,9 @@
 # Idea Start
 A small MEAN app built for a school project.
 
-![image](http://prntscr.com/8lo27q)
+![image](http://i.imgur.com/pu6F8nd.jpg)
 
-![image](http://prntscr.com/8lo2fb)
+![image](http://i.imgur.com/cg3mCRm.png)
 
 [![forthebadge](http://forthebadge.com/images/badges/compatibility-betamax.svg)](http://forthebadge.com)
 
